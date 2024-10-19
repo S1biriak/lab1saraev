@@ -62,7 +62,48 @@ void edit_pipe(pipe new_pipe)
     }
 }
 
+cs add_cs()
+{
+    cs new_cs;
+    cout << " Enter the cs name " << endl;
+    cin >> new_cs.name;
+    cout << " Enter the count shop of the cs " << endl;
+    cin >> new_cs.count_shop;
+    cout << " Enter the count workshop of the cs " << endl;
+    cin >> new_cs.count_workshop;
+    cout << " Enter the perfomance of the cs " << endl;
+    cin >> new_cs.perfomance;
+    return new_cs;
+}
 
+void output_cs(cs new_cs)
+{
+    if (new_cs.name == "no")
+    {
+        cout << " No new station " << endl;
+    }
+    else
+    {
+        cout << " Info of station " << endl;
+        cout << " 1. Name: " << "" << new_cs.name << endl;
+        cout << " 2. Count shop: " << "" << new_cs.count_shop << endl;
+        cout << " 3. Count workshop: " << "" << new_cs.count_workshop << endl;
+        cout << " 4. Perfomance: " << "" << new_cs.perfomance << endl;
+    }
+}
+
+void edit_cs(cs new_cs)
+{
+    if (new_cs.name == "no")
+    {
+        cout << " No new station " << endl;
+    }
+    else
+    {
+        cout << " Editing the number of workshops " << endl;;
+        cin >> new_cs.count_workshop;
+    }
+}
 int main()
 {
     pipe new_pipe;
@@ -84,8 +125,8 @@ int main()
         cout << " --------------------------- " << endl;
         cout << "" << endl;
         cout << " Enter the number " << endl;
+        
         cin >> number;
-
         switch (number)
         {
         case 1:
