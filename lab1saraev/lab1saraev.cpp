@@ -11,7 +11,7 @@ struct pipe
 	bool repair;
 };
 
-struct compressor_station 
+struct cs 
 {
 	string name="no";
 	int workshops;
@@ -28,7 +28,7 @@ pipe add_pipe()
     cin >> new_pipe.length;
     cout << " Enter the diameter of the pipe " << endl;
     cin >> new_pipe.diameter;
-    cout << " Ennter the repair of the pipe " << endl;
+    cout << " Enter the repair of the pipe " << endl;
     cin >> new_pipe.repair;
     return new_pipe;
 }
@@ -67,12 +67,12 @@ cs add_cs()
     cs new_cs;
     cout << " Enter the cs name " << endl;
     cin >> new_cs.name;
-    cout << " Enter the count shop of the cs " << endl;
-    cin >> new_cs.count_shop;
-    cout << " Enter the count workshop of the cs " << endl;
-    cin >> new_cs.count_workshop;
-    cout << " Enter the perfomance of the cs " << endl;
-    cin >> new_cs.perfomance;
+    cout << " Enter the workshops of the cs " << endl;
+    cin >> new_cs.workshops;
+    cout << " Enter the workshops_in_operation of the cs " << endl;
+    cin >> new_cs.workshops_in_operation;
+    cout << " Enter the effcoef of the cs " << endl;
+    cin >> new_cs.effcoef;
     return new_cs;
 }
 
@@ -86,9 +86,9 @@ void output_cs(cs new_cs)
     {
         cout << " Info of station " << endl;
         cout << " 1. Name: " << "" << new_cs.name << endl;
-        cout << " 2. Count shop: " << "" << new_cs.count_shop << endl;
-        cout << " 3. Count workshop: " << "" << new_cs.count_workshop << endl;
-        cout << " 4. Perfomance: " << "" << new_cs.perfomance << endl;
+        cout << " 2. Workshops: " << "" << new_cs.workshops << endl;
+        cout << " 3. Workshops_in_operation: " << "" << new_cs.workshops_in_operation << endl;
+        cout << " 4. Effcoef: " << "" << new_cs.effcoef << endl;
     }
 }
 
@@ -101,12 +101,13 @@ void edit_cs(cs new_cs)
     else
     {
         cout << " Editing the number of workshops " << endl;;
-        cin >> new_cs.count_workshop;
+        cin >> new_cs.workshops_in_operation;
     }
 }
 int main()
 {
     pipe new_pipe;
+    cs new_cs;
     int number;
     while (true) 
     {
@@ -124,9 +125,11 @@ int main()
         cout << "" << endl;
         cout << " --------------------------- " << endl;
         cout << "" << endl;
-        cout << " Enter the number " << endl;
-        
+        cout << " Enter the number: ";
         cin >> number;
+        cout << "" << endl;
+        
+        
         switch (number)
         {
         case 1:
@@ -136,21 +139,33 @@ int main()
             break;
         case 2:
             cout << " 2. Add compression station " << endl;
+            new_cs = add_cs();
+            output_cs(new_cs);
             break;
         case 3:
             cout << " 3. All components view " << endl;
+            output_pipe(new_pipe);
+            output_cs(new_cs);
             break;
         case 4:
             cout << " 4. Edit gas pipe " << endl;
+            edit_pipe(new_pipe);
             break;
         case 5:
             cout << " 5. Edit compression station " << endl;
+            edit_cs(new_cs);
             break;
         case 6:
-            cout << " 6. Save to file " << endl;
+            cout << " 6.1. Save gas pipe to file " << endl;
             break;
         case 7:
-            cout << " 7. Upload from file " << endl;
+            cout << " 7.1. Upload gas pipe from file " << endl;
+            break;
+        case 8:
+            cout << " 6.2. Save compression station to file " << endl;
+            break;
+        case 9:
+            cout << " 7.2. Upload compression station from file " << endl;
             break;
         case 0:
             return false;
