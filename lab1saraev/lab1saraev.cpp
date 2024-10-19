@@ -43,7 +43,7 @@ void output_pipe(pipe new_pipe)
     }
     else 
     {
-        cout << " Info of pipes" << endl;
+        cout << " Info of pipes " << endl;
         cout << " 1. Name: " << "" << new_pipe.name << endl;
         cout << " 2. Length: " << "" << new_pipe.length << endl;
         cout << " 3. Diameter: " << "" << new_pipe.diameter << endl;
@@ -64,27 +64,25 @@ void edit_pipe(pipe new_pipe)
     }
 }
 
-void save_pipe(const pipe& pipe)
+void save_pipe(ofstream& fout, const pipe& pipe)
 {
-    ofstream fout("info.txt");
-    if (pipe.name == "no")
+    if (pipe.name != "no")
     {
-        fout << " No pipe " << endl;
-    }
-    else
-    {
-        fout << " Info of pipes" << endl;
+        fout << " Info of pipes " << endl;
         fout << pipe.name << endl;
         fout << pipe.length << endl;
         fout << pipe.diameter << endl;
         fout << pipe.repair << endl;
     }
-    fout.close();
+    
 }
 
-void load_pipe(pipe& pipe)
+void load_pipe(ifstream& fin, pipe& pipe)
 {
-    ifstream fin("info.txt");
+    fin >> pipe.name;
+    fin >> pipe.length;
+    fin >> pipe.diameter;
+    fin >> pipe.repair;
 }
 
 cs add_cs()
@@ -131,27 +129,57 @@ void edit_cs(cs new_cs)
     }
 }
 
-void save_cs(const cs& cs)
+void save_cs(ofstream& fout, const cs& cs)
 {
-    ofstream fout("info.txt");
-    if (cs.name == "no")
+    if (cs.name != "no")
     {
-        fout << " No station " << endl;
-    }
-    else
-    {
-        fout << " Info of station" << endl;
+        fout << " Info of station " << endl;
         fout << cs.name << endl;
         fout << cs.workshops << endl;
         fout << cs.workshops_in_operation << endl;
         fout << cs.effcoef << endl;
     }
+}
+
+void load_cs(ifstream& fin, cs& cs)
+{
+    fin >> cs.name;
+    fin >> cs.workshops;
+    fin >> cs.workshops_in_operation;
+    fin >> cs.effcoef;
+}
+
+void save(const pipe& pipe, const cs& cs)
+{
+    ofstream fout("info.txt");
+    save_pipe(fout, pipe);
+    save_cs(fout, cs);
     fout.close();
 }
 
-void load_cs(cs& cs)
+void load(pipe& pipe, cs& cs)
 {
     ifstream fin("info.txt");
+    string line;
+    int flag = 0;
+    if (fin.is_open())
+    {
+        while (getline(fin, line))
+        {
+            if (line == " Info of pipes ")
+            {
+                load_pipe(fin, pipe);
+                flag = 1;
+            }
+            else if (line == " Info of station ")
+            {
+                load_cs(fin, cs);
+                flag = 1;
+            }
+            if (flag == 0) cout << " No info in file" << endl;
+        }
+        fin.close();
+    }
 }
 
 
@@ -207,22 +235,15 @@ int main()
             edit_cs(new_cs);
             break;
         case 6:
-            cout << " 6.1. Save gas pipe to file " << endl;
-            save_pipe(new_pipe);
+            cout << " 6. Save to file " << endl;
+            save(new_pipe, new_cs);
             break;
         case 7:
-            cout << " 7.1. Upload gas pipe from file " << endl;
-            load_pipe(new_pipe);
-            break;
-        case 8:
-            cout << " 6.2. Save compression station to file " << endl;
-            save_cs(new_cs);
-            break;
-        case 9:
-            cout << " 7.2. Upload compression station from file " << endl;
-            load_cs(new_cs);
+            cout << " 7. Upload from file " << endl;
+            load(new_pipe, new_cs);
             break;
         case 0:
+            cout << "End command" << endl;
             return false;
             break;
         }

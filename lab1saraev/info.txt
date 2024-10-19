@@ -1,5 +1,10 @@
- Info of pipes
+ Info of pipes 
 name
 12
 10
+0
+ Info of station 
+name
+4
+3
 0
