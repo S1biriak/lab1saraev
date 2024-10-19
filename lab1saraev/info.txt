@@ -1,0 +1,5 @@
+ Info of pipes
+name
+12
+10
+0
