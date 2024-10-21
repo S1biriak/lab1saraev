@@ -17,20 +17,77 @@ struct cs
 	string name="no";
 	int workshops;
 	int workshops_in_operation;
-	int effcoef;
+	double effcoef;
 };
+
+bool check_string(const string& input) 
+{
+    return !input.empty();
+}
+string check_strings(string& string_data) 
+{
+    do 
+    {
+        cin >> string_data;
+        if (not check_string(string_data)) 
+        {
+            cout << "Enter string format output" << endl;
+        }
+    } while (check_string(string_data));
+    return string_data;
+}
+int check_int(int& int_data)
+{
+    cin >> int_data;
+    while (cin.fail() || cin.peek() != '\n' || int_data <= 0)
+    {
+        cin.clear();
+        cin.ignore(100000, '\n');
+        cout << "" << endl;
+        cout << "Enter a integer data type greater than 0" << endl;
+        cin >> int_data;
+    }
+    return int_data;
+}
+double check_double(double& double_data)
+{
+    cin >> double_data;
+    while (cin.fail() || cin.peek() != '\n' || double_data <= 0)
+    {
+        cin.clear();
+        cin.ignore(100000, '\n');
+        cout << "" << endl;
+        cout << "Enter a double data type greater than 0" << endl;
+        cin >> double_data;
+    }
+    return double_data;
+}
+bool check_bool(bool& bool_data)
+{
+    cin >> bool_data;
+    while (cin.fail() || cin.peek() != '\n')
+    {
+        cin.clear();
+        cin.ignore(100000, '\n');
+        cout << "" << endl;
+        cout << "Enter a boolean data type greater than 0" << endl;
+        cin >> bool_data;
+    }
+    return bool_data;
+}
+
 
 pipe add_pipe() 
 {
     pipe new_pipe;
     cout << " Enter the pipe name: ";
-    cin >> new_pipe.name;
+    check_strings(new_pipe.name);
     cout << " Enter the length of the pipe: ";
-    cin >> new_pipe.length;
+    check_double(new_pipe.length);
     cout << " Enter the diameter of the pipe: ";
-    cin >> new_pipe.diameter;
+    check_int(new_pipe.diameter);
     cout << " Enter the repair of the pipe: ";
-    cin >> new_pipe.repair;
+    check_bool(new_pipe.repair);
     cout << "" << endl;
     return new_pipe;
 }
@@ -59,8 +116,8 @@ void edit_pipe(pipe new_pipe)
     }
     else 
     {
-        cout << " Editing the under repair attribute " << endl;;
-        cin >> new_pipe.repair;
+        cout << " Editing the under repair attribute " << endl;
+        check_bool(new_pipe.repair);
     }
 }
 
@@ -88,14 +145,21 @@ void load_pipe(ifstream& fin, pipe& pipe)
 cs add_cs()
 {
     cs new_cs;
+    int workshops_in_operation;
     cout << " Enter the cs name: ";
-    cin >> new_cs.name;
+    check_strings(new_cs.name);
     cout << " Enter the workshops of the cs: ";
-    cin >> new_cs.workshops;
+    check_int(new_cs.workshops);
     cout << " Enter the workshops_in_operation of the cs: ";
-    cin >> new_cs.workshops_in_operation;
+    check_int(new_cs.workshops_in_operation);
+    do 
+    {
+        cin >> workshops_in_operation;
+        check_int(workshops_in_operation);
+    } while (workshops_in_operation > new_cs.workshops);
+    new_cs.workshops_in_operation = workshops_in_operation;
     cout << " Enter the effcoef of the cs: ";
-    cin >> new_cs.effcoef;
+    check_double(new_cs.effcoef);
     cout << "" << endl;
     return new_cs;
 }
@@ -124,8 +188,14 @@ void edit_cs(cs new_cs)
     }
     else
     {
-        cout << " Editing the number of workshops " << endl;;
-        cin >> new_cs.workshops_in_operation;
+        int workshops_in_operation
+        cout << " Editing the number of workshops " << endl;
+        do
+        {
+            cin >> workshops_in_operation;
+            check_int(workshops_in_operation);
+        } while (workshops_in_operation > new_cs.workshops);
+        new_cs.workshops_in_operation = workshops_in_operation;
     }
 }
 
@@ -248,5 +318,5 @@ int main()
             break;
         }
     }
-    
+
 }
