@@ -1,10 +1,10 @@
- Info of pipes 
-name
-12
+ Pipe Information 
+pipe
+12.2
+20
+0
+ Compression Station Information 
+cs
 10
-0
- Info of station 
-name
-4
-3
-0
+8
+79
