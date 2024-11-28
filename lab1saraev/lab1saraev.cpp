@@ -238,31 +238,52 @@ void save(const pipe& pipe, const cs& cs)
     fout.close();
 }
 
+void reset_pipe(pipe& p) {
+    p.name = "no";
+    p.length = 0;
+    p.diameter = 0;
+    p.repair = false;
+}
+
+void reset_cs(cs& s) {
+    s.name = "no";
+    s.workshops = 0;
+    s.workshops_in_operation = 0;
+    s.effcoef = 0;
+}
+
 void load(pipe& pipe, cs& cs)
 {
+    reset_pipe(pipe);
+    reset_cs(cs);    
+
     ifstream fin("info.txt");
     string line;
-    int flag = 0;
     if (fin.is_open())
     {
+        bool has_data = false;
         while (getline(fin, line))
         {
             if (line == " Pipe Information ")
             {
                 load_pipe(fin, pipe);
-                flag = 1;
+                has_data = true;
             }
             else if (line == " Compression Station Information ")
             {
                 load_cs(fin, cs);
-                flag = 1;
+                has_data = true;
             }
-            if (flag == 0) cout << " No info in file" << endl;
         }
+        if (!has_data)
+            cout << " No info in file" << endl;
         fin.close();
     }
+    else
+    {
+        cout << " Unable to open file." << endl;
+    }
 }
-
 
 int main()
 {
@@ -322,6 +343,10 @@ int main()
         case 7:
             cout << " 7. Upload from file " << endl;
             load(new_pipe, new_cs);
+            cout << " Data loaded from file: " << endl;
+            cout << "" << endl;
+            output_pipe(new_pipe);
+            output_cs(new_cs);
             break;
         case 0:
             cout << "End command" << endl;
