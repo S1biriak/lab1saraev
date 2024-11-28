@@ -106,7 +106,7 @@ void output_pipe(pipe& new_pipe)
         cout << " 1. Name: " << "" << new_pipe.name << endl;
         cout << " 2. Length: " << "" << new_pipe.length << endl;
         cout << " 3. Diameter: " << "" << new_pipe.diameter << endl;
-        cout << " 4. Repair: " << "" << new_pipe.repair << endl;
+        cout << " 4. Repair: " << (new_pipe.repair ? "yes" : "no") << endl;
     }
 }
 
