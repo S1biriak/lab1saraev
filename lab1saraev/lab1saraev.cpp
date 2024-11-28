@@ -31,7 +31,8 @@ string check_strings(string& string_data)
         getline(cin, string_data);
         if (!valid_string(string_data))
         {
-            cout << "Please enter a valid string: ";
+            cout << "" << endl;
+            cout << " Please enter a valid string: ";
         }
     } while (!valid_string(string_data));
     return string_data;
@@ -44,7 +45,7 @@ int check_int(int& int_data)
         cin.clear();
         cin.ignore(100000, '\n');
         cout << "" << endl;
-        cout << "Please enter a integer data type greater than 0: ";
+        cout << " Please enter a integer data type greater than 0: ";
         cin >> int_data;
     }
     return int_data;
@@ -57,7 +58,7 @@ double check_double(double& double_data)
         cin.clear();
         cin.ignore(100000, '\n');
         cout << "" << endl;
-        cout << "Please enter a double data type greater than 0: ";
+        cout << " Please enter a double data type greater than 0: ";
         cin >> double_data;
     }
     return double_data;
@@ -70,7 +71,7 @@ bool check_bool(bool& bool_data)
         cin.clear();
         cin.ignore(100000, '\n');
         cout << "" << endl;
-        cout << "Enter 1 (yes) or 0 (no): ";
+        cout << " Enter 1 (yes) or 0 (no): ";
         cin >> bool_data;
     }
     return bool_data;
@@ -93,7 +94,7 @@ pipe add_pipe()
     return new_pipe;
 }
 
-void output_pipe(pipe new_pipe) 
+void output_pipe(pipe& new_pipe) 
 {
     if (new_pipe.name == "no") 
     {
@@ -109,7 +110,7 @@ void output_pipe(pipe new_pipe)
     }
 }
 
-void edit_pipe(pipe new_pipe)
+void edit_pipe(pipe& new_pipe)
 {
     if (new_pipe.name == "no") 
     {
@@ -157,20 +158,20 @@ cs add_cs()
     check_int(new_cs.workshops_in_operation);
     while (new_cs.workshops_in_operation > new_cs.workshops)
     {
-        cout << "Workshops in operation cannot exceed total workshops. Try again: ";
+        cout << " Workshops in operation cannot exceed total workshops. Try again: ";
         check_int(new_cs.workshops_in_operation);
     }
     cout << " Enter the station efficiency (0-100): ";
     check_double(new_cs.effcoef);
     while (new_cs.effcoef > 100)
     {
-        cout << "Efficiency must be between 0 and 100. Try again: ";
+        cout << " Efficiency must be between 0 and 100. Try again: ";
         check_double(new_cs.effcoef);
     }
     return new_cs;
 }
 
-void output_cs(cs new_cs)
+void output_cs(cs& new_cs)
 {
     if (new_cs.name == "no")
     {
@@ -198,11 +199,11 @@ void edit_cs(cs& new_cs)
     {
         do 
         {
-            cout << "Enter the number of workshops in operation: ";
+            cout << " Enter the number of workshops in operation: ";
             check_int(new_cs.workshops_in_operation);
             if (new_cs.workshops_in_operation > new_cs.workshops) 
             {
-                cout << "Workshops in operation cannot exceed total workshops.\n";
+                cout << " Workshops in operation cannot exceed total workshops.\n";
             }
         } while (new_cs.workshops_in_operation > new_cs.workshops);
     }
@@ -326,7 +327,7 @@ int main()
             cout << "End command" << endl;
             return 0;
         default:
-            cout << "Invalid choice. Please try again." << endl;
+            cout << " Invalid choice. Please try again." << endl;
         }
     }
 
